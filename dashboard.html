@@ -1,0 +1,36 @@
+<h2>Add Subject</h2>
+
+<input type="text" id="subject" placeholder="Subject name" />
+<br><br>
+
+<select id="difficulty">
+  <option value="1">Easy</option>
+  <option value="2">Medium</option>
+  <option value="3">Hard</option>
+</select>
+<br><br>
+
+<input type="date" id="exam_date" />
+<br><br>
+
+<button onclick="addSubject()">Add Subject</button>
+
+<script>
+function addSubject() {
+  const user_id = localStorage.getItem("user_id");
+
+  const data = {
+    user_id: user_id,
+    name: document.getElementById("subject").value,
+    difficulty: parseInt(document.getElementById("difficulty").value),
+    exam_date: document.getElementById("exam_date").value
+  };
+
+  fetch("/add-subject", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(() => alert("Subject added!"));
+}
+</script>
